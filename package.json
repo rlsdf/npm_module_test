@@ -1,0 +1,30 @@
+{
+  "name": "npm_module_test",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -rf lib/* && cross-env NODE_ENV=production webpack --config webpack.config.js",
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rlsdf/npm_module_test.git"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/rlsdf/npm_module_test/issues"
+  },
+  "homepage": "https://github.com/rlsdf/npm_module_test#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-eslint": "^8.2.6",
+    "babel-loader": "^7.1.5",
+    "cross-env": "^5.2.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2",
+    "webpack": "^4.17.1"
+  }
+}

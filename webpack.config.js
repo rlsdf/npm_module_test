@@ -1,5 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = [
   {
@@ -11,8 +12,11 @@ module.exports = [
       library: 'MyModule'
     },
     resolve: {
-      extensions: ['.js'],
+      extensions: ['.js', '.scss'],
       modules: ['./src', 'node_modules']
+    },
+    resolveLoader: {
+      moduleExtensions: ['-loader']
     },
     module: {
       rules: [
@@ -23,9 +27,31 @@ module.exports = [
           options: {
             presets: ["es2015", "react"]
           }
+        },
+        {
+          test: /\.(css|scss)$/,
+          include: [path.join(__dirname, 'src')],
+          use: ExtractTextPlugin.extract({
+            fallback: 'style',
+            use: ['css', 'sass']
+          })
+        },
+        {
+          test: /\.(png|jpg|gif|svg)$/,
+          use: {
+            loader: 'url',
+            options: {
+              name: '[name].[ext]?[hash]',
+              publicPath: './lib/',
+              limit: 100000 // under 100kb
+            }
+          }
         }
       ]
     },
+    plugins: [
+      new ExtractTextPlugin('style.css')
+    ],
     externals: {
       react: 'React',
       'react-dom': 'ReactDOM'
@@ -40,8 +66,11 @@ module.exports = [
       library: 'MyModule'
     },
     resolve: {
-      extensions: ['.js'],
+      extensions: ['.js', '.scss'],
       modules: ['./src', 'node_modules']
+    },
+    resolveLoader: {
+      moduleExtensions: ['-loader']
     },
     module: {
       rules: [
@@ -52,6 +81,25 @@ module.exports = [
           options: {
             presets: ["es2015", "react"]
           }
+        },
+        {
+          test: /\.(css|scss)$/,
+          include: [path.join(__dirname, 'src')],
+          use: ExtractTextPlugin.extract({
+            fallback: 'style',
+            use: ['css', 'sass']
+          })
+        },
+        {
+          test: /\.(png|jpg|gif|svg)$/,
+          use: {
+            loader: 'url',
+            options: {
+              name: '[name].[ext]?[hash]',
+              publicPath: './lib/',
+              limit: 10000 // 10kb
+            }
+          }
         }
       ]
     },
@@ -60,6 +108,7 @@ module.exports = [
       'react-dom': 'ReactDOM'
     },
     plugins: [
+      new ExtractTextPlugin('style.css'),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production')

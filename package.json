@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rm -rf lib/* && cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "build": "rm -rf lib/* && cross-env NODE_ENV=production webpack --config webpack.config.js"
   },
   "repository": {
     "type": "git",
@@ -23,8 +23,14 @@
     "babel-eslint": "^8.2.6",
     "babel-loader": "^7.1.5",
     "cross-env": "^5.2.0",
+    "css-loader": "^1.0.0",
+    "extract-text-webpack-plugin": "^3.0.2",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.22.1",
+    "url-loader": "^1.1.1",
     "webpack": "^4.17.1"
-  }
+  },
+  "dependencies": {}
 }

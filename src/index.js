@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import './styles/style';
 
 export default class MyModule extends Component {
 	constructor() {
@@ -14,9 +15,9 @@ export default class MyModule extends Component {
 	}
 
 	render() {
-		<div className={this.state.isTest ? 'react' : 'tmon'}>
-			<button onClick={this.clickButton}>click me!</button>
-			<span className="frame"></span>
+		<div>
+			<button type="button" onClick={this.clickButton}>click me!</button>
+			<span className={this.state.isTest ? 'frame react' : 'frame tmon'}></span>
 		</div>
 	}
 }

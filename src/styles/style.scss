@@ -1,0 +1,12 @@
+.frame {
+	width: 16px;
+	height: 16px;
+
+	&.react {
+		background-image: url('../images/favi_react.png');
+	}
+
+	&.tmon {
+		background-image: url('../images/favi_tmon.png');
+	}
+}

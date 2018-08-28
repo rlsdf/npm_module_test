@@ -1,6 +1,8 @@
 .frame {
+	display: inline-block;
 	width: 16px;
 	height: 16px;
+	background-size: 16px 16px;
 
 	&.react {
 		background-image: url('../images/favi_react.png');

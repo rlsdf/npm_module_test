@@ -1,15 +1,14 @@
 const path = require('path');
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = [
   {
     mode: 'development',
     entry: './src/index.js',
     output: {
-      filename: './lib/my-module.js',
-      libraryTarget: 'umd',
-      library: 'MyModule'
+      path: path.join(__dirname, `./lib`),
+      filename: 'my-module.js'
     },
     resolve: {
       extensions: ['.js', '.scss'],
@@ -25,16 +24,21 @@ module.exports = [
           loader: 'babel',
           include: [path.join(__dirname, 'src')],
           options: {
-            presets: ["es2015", "react"]
+            presets: ["env", "react"],
+            plugins: [
+              "transform-class-properties",
+              ["transform-es2015-modules-commonjs", {
+                "allowTopLevelThis": true
+              }]
+            ]
           }
         },
         {
           test: /\.(css|scss)$/,
-          include: [path.join(__dirname, 'src')],
-          use: ExtractTextPlugin.extract({
-            fallback: 'style',
-            use: ['css', 'sass']
-          })
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css', 'sass'
+          ]
         },
         {
           test: /\.(png|jpg|gif|svg)$/,
@@ -50,7 +54,9 @@ module.exports = [
       ]
     },
     plugins: [
-      new ExtractTextPlugin('style.css')
+      new MiniCssExtractPlugin({
+        filename: 'style.css'
+      })
     ],
     externals: {
       react: 'React',
@@ -61,7 +67,8 @@ module.exports = [
     mode: 'production',
     entry: './src/index.js',
     output: {
-      filename: './lib/my-module.min.js',
+      path: path.join(__dirname, `./lib`),
+      filename: 'my-module.min.js',
       libraryTarget: 'umd',
       library: 'MyModule'
     },
@@ -79,16 +86,19 @@ module.exports = [
           loader: 'babel',
           include: [path.join(__dirname, 'src')],
           options: {
-            presets: ["es2015", "react"]
+            compact: true,
+            presets: ["env", "react"],
+            plugins: [
+              "transform-class-properties"
+            ]
           }
         },
         {
           test: /\.(css|scss)$/,
-          include: [path.join(__dirname, 'src')],
-          use: ExtractTextPlugin.extract({
-            fallback: 'style',
-            use: ['css', 'sass']
-          })
+          use: [
+            MiniCssExtractPlugin.loader,
+            'css', 'sass'
+          ]
         },
         {
           test: /\.(png|jpg|gif|svg)$/,
@@ -97,7 +107,7 @@ module.exports = [
             options: {
               name: '[name].[ext]?[hash]',
               publicPath: './lib/',
-              limit: 10000 // 10kb
+              limit: 100000 // 100kb
             }
           }
         }
@@ -108,18 +118,12 @@ module.exports = [
       'react-dom': 'ReactDOM'
     },
     plugins: [
-      new ExtractTextPlugin('style.css'),
+      new MiniCssExtractPlugin({
+        filename: 'style.css'
+      }),
       new webpack.DefinePlugin({
         'process.env': {
           NODE_ENV: JSON.stringify('production')
-        }
-      }),
-      new webpack.optimize.UglifyJsPlugin({
-        output: {
-          comments: false
-        },
-        compress: {
-          warnings: false
         }
       })
     ]

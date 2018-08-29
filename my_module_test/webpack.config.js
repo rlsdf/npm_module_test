@@ -8,7 +8,9 @@ module.exports = [
     entry: './src/index.js',
     output: {
       path: path.join(__dirname, `./lib`),
-      filename: 'my-module.js'
+      filename: 'my-module.js',
+      libraryTarget: 'umd',
+      library: 'MyModule'
     },
     resolve: {
       extensions: ['.js', '.scss'],

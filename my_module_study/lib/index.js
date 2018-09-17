@@ -6,36 +6,7 @@ var React = require('react');
 var React__default = _interopDefault(React);
 var PropTypes = _interopDefault(require('prop-types'));
 
-function styleInject(css, ref) {
-  if ( ref === void 0 ) ref = {};
-  var insertAt = ref.insertAt;
-
-  if (!css || typeof document === 'undefined') { return; }
-
-  var head = document.head || document.getElementsByTagName('head')[0];
-  var style = document.createElement('style');
-  style.type = 'text/css';
-
-  if (insertAt === 'top') {
-    if (head.firstChild) {
-      head.insertBefore(style, head.firstChild);
-    } else {
-      head.appendChild(style);
-    }
-  } else {
-    head.appendChild(style);
-  }
-
-  if (style.styleSheet) {
-    style.styleSheet.cssText = css;
-  } else {
-    style.appendChild(document.createTextNode(css));
-  }
-}
-
-var css = "/* add css styles here (optional) */\n\n.styles_test__32Qsm {\n  display: inline-block;\n  margin: 2em auto;\n  border: 2px solid #000;\n  font-size: 2em;\n}\n";
 var styles = { "test": "styles_test__32Qsm" };
-styleInject(css);
 
 var classCallCheck = function (instance, Constructor) {
   if (!(instance instanceof Constructor)) {
@@ -85,15 +56,15 @@ var possibleConstructorReturn = function (self, call) {
   return call && (typeof call === "object" || typeof call === "function") ? call : self;
 };
 
-var ExampleComponent = function (_Component) {
-  inherits(ExampleComponent, _Component);
+var MyModule = function (_Component) {
+  inherits(MyModule, _Component);
 
-  function ExampleComponent() {
-    classCallCheck(this, ExampleComponent);
-    return possibleConstructorReturn(this, (ExampleComponent.__proto__ || Object.getPrototypeOf(ExampleComponent)).apply(this, arguments));
+  function MyModule() {
+    classCallCheck(this, MyModule);
+    return possibleConstructorReturn(this, (MyModule.__proto__ || Object.getPrototypeOf(MyModule)).apply(this, arguments));
   }
 
-  createClass(ExampleComponent, [{
+  createClass(MyModule, [{
     key: 'render',
     value: function render() {
       var text = this.props.text;
@@ -102,17 +73,17 @@ var ExampleComponent = function (_Component) {
       return React__default.createElement(
         'div',
         { className: styles.test },
-        'Example Component: ',
+        'Module Example: ',
         text
       );
     }
   }]);
-  return ExampleComponent;
+  return MyModule;
 }(React.Component);
 
-ExampleComponent.propTypes = {
+MyModule.propTypes = {
   text: PropTypes.string
 };
 
-module.exports = ExampleComponent;
+module.exports = MyModule;
 //# sourceMappingURL=index.js.map

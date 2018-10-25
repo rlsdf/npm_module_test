@@ -3,12 +3,13 @@ const webpack = require('webpack');
 
 module.exports = [
   {
+    mode: 'development',
     entry: './index.lib.js',
     output: {
       path: path.join(__dirname, `../lib`),
       filename: 'index.lib.js',
-      libraryTarget: 'commonjs2',
-      library: 'MyModuleApp'
+      libraryTarget: 'var',
+      library: 'MyModule'
     },
     resolve: {
       extensions: ['.js', '.scss'],
@@ -34,12 +35,13 @@ module.exports = [
     }
   },
   {
+    mode: 'production',
     entry: './index.lib.js',
     output: {
       path: path.join(__dirname, `../lib`),
       filename: 'index.lib.min.js',
       libraryTarget: 'var',
-      library: 'MyModuleApp'
+      library: 'MyModule'
     },
     resolve: {
       extensions: ['.js', '.scss'],
@@ -69,16 +71,6 @@ module.exports = [
           NODE_ENV: JSON.stringify('production')
         }
       })
-    //   new UglifyJSPlugin({
-    //     parallel: true,
-    //     uglifyOptions: {
-    //         output: {
-    //             quote_keys: true,
-    //             ascii_only: true,
-    //             keep_quoted_props: true
-    //         }
-    //     }
-    //  })
-   ]
+    ]
   }
 ];

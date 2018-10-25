@@ -3,12 +3,10 @@ const webpack = require('webpack');
 
 module.exports = [
   {
-    entry: './index.lib.js',
+    entry: './src/index.js',
     output: {
-      path: path.join(__dirname, `../lib`),
-      filename: 'index.lib.js',
-      libraryTarget: 'commonjs2',
-      library: 'MyModuleApp'
+      path: path.join(__dirname, `./build`),
+      filename: 'index.bundle.js'
     },
     resolve: {
       extensions: ['.js', '.scss'],
@@ -22,7 +20,27 @@ module.exports = [
         {
           test: /\.js$/,
           loader: 'babel',
-          exclude: [path.join(__dirname, 'node_modules')]
+          exclude: [path.join(__dirname, 'node_modules')],
+          options: {
+            compact: true,
+            presets: [
+                ["env", {
+                targets: {
+                  uglify: true,
+                },
+                modules: false,
+                debug: false
+              }]
+            ],
+            plugins: [
+              ["transform-runtime", {
+                "helpers": false,
+                "polyfill": false,
+                "regenerator": true
+              }],
+              "dynamic-import-node"
+            ]
+          }
         }
         // {
         //   test: /\.(css|scss)$/,
@@ -34,12 +52,10 @@ module.exports = [
     }
   },
   {
-    entry: './index.lib.js',
+    entry: './src/index.js',
     output: {
-      path: path.join(__dirname, `../lib`),
-      filename: 'index.lib.min.js',
-      libraryTarget: 'var',
-      library: 'MyModuleApp'
+      path: path.join(__dirname, `./build`),
+      filename: 'index.bundle.min.js'
     },
     resolve: {
       extensions: ['.js', '.scss'],

@@ -3,16 +3,17 @@ const webpack = require('webpack');
 
 module.exports = [
   {
-    entry: './index.lib.js',
+    mode: 'development',
+    entry: './src/index.lib.js',
     output: {
-      path: path.join(__dirname, `../lib`),
+      path: path.join(__dirname, `./lib`),
       filename: 'index.lib.js',
       libraryTarget: 'commonjs2',
-      library: 'MyModuleApp'
+      library: 'MyModule'
     },
     resolve: {
       extensions: ['.js', '.scss'],
-      modules: ['./src', 'node_modules']
+      // modules: ['./src', 'node_modules']
     },
     resolveLoader: {
       moduleExtensions: ['-loader']
@@ -22,7 +23,8 @@ module.exports = [
         {
           test: /\.js$/,
           loader: 'babel',
-          exclude: [path.join(__dirname, 'node_modules')]
+          include: __dirname,
+          // exclude: [path.join(__dirname, 'node_modules')]
         }
         // {
         //   test: /\.(css|scss)$/,
@@ -34,16 +36,17 @@ module.exports = [
     }
   },
   {
-    entry: './index.lib.js',
+    mode: 'production',
+    entry: './src/index.lib.js',
     output: {
-      path: path.join(__dirname, `../lib`),
+      path: path.join(__dirname, `./lib`),
       filename: 'index.lib.min.js',
-      libraryTarget: 'var',
-      library: 'MyModuleApp'
+      libraryTarget: 'commonjs2',
+      library: 'MyModule'
     },
     resolve: {
       extensions: ['.js', '.scss'],
-      modules: ['./src', 'node_modules']
+      // modules: ['./src', 'node_modules']
     },
     resolveLoader: {
       moduleExtensions: ['-loader']
@@ -53,7 +56,8 @@ module.exports = [
         {
           test: /\.js$/,
           loader: 'babel',
-          exclude: [path.join(__dirname, 'node_modules')]
+          include: __dirname,
+          // exclude: [path.join(__dirname, 'node_modules')]
         }
         // {
         //   test: /\.(css|scss)$/,
@@ -69,16 +73,6 @@ module.exports = [
           NODE_ENV: JSON.stringify('production')
         }
       })
-    //   new UglifyJSPlugin({
-    //     parallel: true,
-    //     uglifyOptions: {
-    //         output: {
-    //             quote_keys: true,
-    //             ascii_only: true,
-    //             keep_quoted_props: true
-    //         }
-    //     }
-    //  })
-   ]
+    ]
   }
 ];
